@@ -1,0 +1,267 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <!-- <img *ngIf="form.get('imageSrc').value" [src]="form.get('imageSrc').value" class="avatar mr-5"> -->
+
+    <h2 *ngIf="form.get('cG_ArName').value || form.get('cG_EnName').value" class="headline m-0" fxFlex="auto">
+      {{ form.get('cG_ArName').value + ' ' + form.get('cG_EnName').value }}
+    </h2>
+    <h2 *ngIf="!form.get('cG_ArName').value && !form.get('cG_EnName').value" class="headline m-0" fxFlex="auto">
+      New Customer
+    </h2>
+
+
+
+    <button [matMenuTriggerFor]="settingsMenu" class="text-secondary" mat-icon-button type="button">
+      <mat-icon [icIcon]="icMoreVert"></mat-icon>
+    </button>
+
+    <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+
+  <mat-dialog-content fxLayout="column">
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="mt-6 flex-auto">
+        <mat-label>Arabic Name</mat-label>
+        <input cdkFocusInitial formControlName="cG_ArName" matInput maxlength="50" required>
+
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto">
+        <mat-label>English Name</mat-label>
+        <input cdkFocusInitial formControlName="cG_EnName" matInput maxlength="50" required>
+
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Email</mat-label>
+        <input formControlName="cG_Email" matInput maxlength="50" required>
+        <mat-icon [icIcon]="icMail" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Address</mat-label>
+        <input formControlName="cG_Address" matInput required>
+
+        <mat-icon [icIcon]="icEditLocation" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+    </div>
+
+
+    <!-- <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Zipcode</mat-label>
+        <input formControlName="zipcode" matInput>
+
+        <mat-icon [icIcon]="icMyLocation" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>City</mat-label>
+        <input formControlName="city" matInput>
+
+        <mat-icon [icIcon]="icLocationCity" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div> -->
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Phone Number</mat-label>
+        <input formControlName="cG_Phone" matInput maxlength="50" type="tel" required>
+        <mat-icon [icIcon]="icPhone" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Price Lists</mat-label>
+        <mat-select #priceListSelect="matSelect" formControlName="priceList_Code" required="required">
+          <mat-option *ngFor="let price of priceList" [value]="price.priceList_Code">
+            <span>{{ price.pL_EnName }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-divider class="-mx-6 mb-10"></mat-divider>
+
+    <!-- Person 1 -->
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Person1 Name</mat-label>
+        <input formControlName="cG_ContactPerName1" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person1 Phone</mat-label>
+        <input formControlName="cG_ContactPerPhone1" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icPhone" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person1 Title</mat-label>
+        <input formControlName="cG_ContactPerTitle1" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icLocationCity" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person1 Email</mat-label>
+        <input formControlName="cG_ContactPerEmail1" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icMail" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+    <!--Person 2-->
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Person2 Name</mat-label>
+        <input formControlName="cG_ContactPerName2" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person2 Phone</mat-label>
+        <input formControlName="cG_ContactPerPhone2" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icPhone" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person2 Title</mat-label>
+        <input formControlName="cG_ContactPerTitle2" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icLocationCity" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person2 Email</mat-label>
+        <input formControlName="cG_ContactPerEmail2" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icMail" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!--Person 3-->
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Person3 Name</mat-label>
+        <input formControlName="cG_ContactPerName3" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person3 Phone</mat-label>
+        <input formControlName="cG_ContactPerPhone3" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icPhone" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person3 Title</mat-label>
+        <input formControlName="cG_ContactPerTitle3" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icLocationCity" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Person3 Email</mat-label>
+        <input formControlName="cG_ContactPerEmail3" matInput maxlength="50">
+
+        <mat-icon [icIcon]="icMail" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+
+    <mat-divider class="-mx-6 mb-10"></mat-divider>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Payment Method</mat-label>
+        <mat-select #payStyleSelect="matSelect" formControlName="cust_PayStyle">
+          <mat-option *ngFor="let style of PayStylesList" [value]="style.id">
+            <span>{{ style.text }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Pay Period</mat-label>
+        <input formControlName="cG_PayPeriod" matInput type="number" min="0">
+        <mat-icon [icIcon]="icPayment" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>Discount</mat-label>
+        <input formControlName="discount" matInput type="number" max="100" min="0">
+        <mat-icon [icIcon]="icPayment" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+
+    </div>
+
+
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Accounts</mat-label>
+        <mat-select #accountsSelect="matSelect" formControlName="acc_No">
+          <mat-option *ngFor="let acc of accountsList" [value]="acc.acc_No">
+            <span>{{ acc.acc_ENName }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="flex-auto">
+        <mat-checkbox class="sm:ml-6 flex-auto" fxLayoutAlign="center center" formControlName='cG_IsMainShoppingCart'>Is
+          MainShoppingCart
+        </mat-checkbox>
+        <mat-checkbox class="sm:ml-6 flex-auto" fxLayoutAlign="center center" formControlName='cG_IsMain'>IsMain
+        </mat-checkbox>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">CANCEL</button>
+    <button *ngIf="isCreateMode()" color="primary" mat-button type="submit" [disabled]="this.showLoader">
+      <mat-icon>
+        <mat-spinner diameter="20" *ngIf="this.showLoader"></mat-spinner>
+      </mat-icon>
+      CREATE CUSTOMER
+    </button>
+    <button *ngIf="isUpdateMode()" color="primary" mat-button type="submit" [disabled]="this.showLoader">
+      <mat-icon>
+        <mat-spinner diameter="20" *ngIf="this.showLoader"></mat-spinner>
+      </mat-icon>
+      UPDATE CUSTOMER
+    </button>
+  </mat-dialog-actions>
+</form>
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icPrint"></mat-icon>
+    <span>Print</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDownload"></mat-icon>
+    <span>Export</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDelete"></mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu>
